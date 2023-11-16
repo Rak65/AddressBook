@@ -67,11 +67,9 @@ public class Contact{
     }
     public String toString(){
         return "First Name: " + getFirstName() +'\n'+ "Last  Name: " + getLastName() +'\n'+ "Address : "+getAddress()+ "City : " + getCity() +'\n'+ "State : " + getState()+'\n'
-                + "zip : " + getZip() +'\n'+"Phone Number : " + getPhoneNumber() +'\n'+ "Email Id: " + getEmail() ;
+                + "Zip : " + getZip() +'\n'+"Phone Number : " + getPhoneNumber() +'\n'+ "Email Id: " + getEmail() ;
     }
-    public void Add_Contact() {
-
-        ArrayList<Contact> list=new ArrayList<Contact>();
+    public void Add_Contact(ArrayList<Contact> list) {
         Contact P1=new Contact();
 
         Scanner s=new Scanner(System.in);
@@ -93,6 +91,12 @@ public class Contact{
         P1.setEmail(s.next());
 
         list.add(P1);
-        System.out.println(list);
+    }
+    public void DisplayContacts(ArrayList<Contact> list){
+        System.out.println("Contacts in Address book :");
+        for(Contact contact : list){
+            System.out.println("First Name: " + contact.getFirstName() +'\n'+ "Last Name: " + contact.getLastName() +'\n'+ "Address : "+contact.getAddress()+ "City : " + contact.getCity() +'\n'+ "State : " + contact.getState()+'\n'
+                    + "zip : " + contact.getZip() +'\n'+"Phone Number : " + contact.getPhoneNumber() +'\n'+ "Email Id: " + contact.getEmail());
+        }
     }
 }

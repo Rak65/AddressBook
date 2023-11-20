@@ -69,10 +69,10 @@ public class Contact{
         return "First Name: " + getFirstName() +'\n'+ "Last  Name: " + getLastName() +'\n'+ "Address : "+getAddress()+ "City : " + getCity() +'\n'+ "State : " + getState()+'\n'
                 + "Zip : " + getZip() +'\n'+"Phone Number : " + getPhoneNumber() +'\n'+ "Email Id: " + getEmail() ;
     }
-    public void Add_Contact(ArrayList<Contact> list) {
+    Scanner s=new Scanner(System.in);
+    public void addContact(ArrayList<Contact> list) {
         Contact P1=new Contact();
 
-        Scanner s=new Scanner(System.in);
         System.out.print("Enter First Name: ");
         P1.setFirstName(s.nextLine());
         System.out.print("Enter Last Name : ");
@@ -92,11 +92,60 @@ public class Contact{
 
         list.add(P1);
     }
-    public void DisplayContacts(ArrayList<Contact> list){
+    public void displayContacts(ArrayList<Contact> list){
         System.out.println("Contacts in Address book :");
         for(Contact contact : list){
             System.out.println("First Name: " + contact.getFirstName() +'\n'+ "Last Name: " + contact.getLastName() +'\n'+ "Address : "+contact.getAddress()+ "City : " + contact.getCity() +'\n'+ "State : " + contact.getState()+'\n'
                     + "zip : " + contact.getZip() +'\n'+"Phone Number : " + contact.getPhoneNumber() +'\n'+ "Email Id: " + contact.getEmail());
         }
+    }
+    public void editContacts(ArrayList<Contact> list, String firstName, String lastName) {
+        boolean contactAvailable = findContact(list, firstName, lastName);
+        if (contactAvailable) {
+            for (Contact contact : list) {
+                if (contact.getFirstName().equals(firstName) && contact.getLastName().equals(lastName)) {
+                    System.out.println("What you want to edit : ");
+                    System.out.println("1. Address\n2. Phone Number\n3. City\n4. State\n5. Zip\n6. Email id");
+                    int choice = s.nextInt();
+                    switch (choice) {
+                        case 1:
+                            System.out.println("Enter new address: ");
+                            contact.setAddress(s.next());
+                            break;
+                        case 2:
+                            System.out.println("Enter new phone number: ");
+                            contact.setPhoneNumber(s.nextLong());
+                            break;
+                        case 3:
+                            System.out.println("Enter new city: ");
+                            contact.setCity(s.next());
+                            break;
+                        case 4:
+                            System.out.println("Enter new state: ");
+                            contact.setState(s.next());
+                            break;
+                        case 5:
+                            System.out.println("Enter Zip : ");
+                            contact.setZip(s.nextInt());
+                        case 6:
+                            System.out.println("Enter email-id");
+                            contact.setEmail(s.next());
+                        default:
+                            System.out.println("Invalid choice");
+                            break;
+                    }
+                    System.out.println("Contact updated successfully.");
+                }
+            }
+        } else {
+            System.out.println("Contact not found.");
+        }
+    }
+    private boolean findContact(ArrayList<Contact> list, String firstName, String lastName){
+        for (Contact contact : list) {
+            if (contact.getFirstName().equals(firstName) && contact.getLastName().equals(lastName))
+                return true;
+        }
+        return false;
     }
 }

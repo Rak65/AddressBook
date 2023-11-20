@@ -1,6 +1,7 @@
 package com.addressbook;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class Contact{
@@ -147,5 +148,17 @@ public class Contact{
                 return true;
         }
         return false;
+    }
+    public void deleteContact(ArrayList<Contact> list, String firstName, String lastName) {
+        Iterator<Contact> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            Contact contact = iterator.next();
+            if (contact.getFirstName().equals(firstName) && contact.getLastName().equals(lastName)) {
+                iterator.remove();
+                System.out.println("Contact deleted successfully.");
+                return;
+            }
+        }
+        System.out.println("Contact not found.");
     }
 }

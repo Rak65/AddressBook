@@ -14,16 +14,25 @@ public class AddressBook {
             System.out.println("Choose your option : ");
             System.out.println("1. Add Contact");
             System.out.println("2. Display all contact");
-            System.out.println("3. Exit");
+            System.out.println("3. Edit contact");
+            System.out.println("4. Exit");
             choice = scanner.nextInt();
             switch (choice){
                 case 1 :
-                    contact.Add_Contact(list);
+                    contact.addContact(list);
                     break;
                 case 2 :
-                    contact.DisplayContacts(list);
+                    contact.displayContacts(list);
                     break;
                 case 3 :
+                    System.out.println("Search contact which you want to edit :");
+                    System.out.println("Enter firstname : ");
+                    String firstName = scanner.next();
+                    System.out.println("Enter lastname : ");
+                    String lastNAme = scanner.next();
+                    contact.editContacts(list,firstName,lastNAme);
+                    break;
+                case 4 :
                     isValid = false;
                     break;
                 default:

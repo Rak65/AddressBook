@@ -2,6 +2,7 @@ package com.addressbook;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Contact{
@@ -70,6 +71,19 @@ public class Contact{
         return "First Name: " + getFirstName() +'\n'+ "Last  Name: " + getLastName() +'\n'+ "Address : "+getAddress()+ "City : " + getCity() +'\n'+ "State : " + getState()+'\n'
                 + "Zip : " + getZip() +'\n'+"Phone Number : " + getPhoneNumber() +'\n'+ "Email Id: " + getEmail() ;
     }
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Contact contact = (Contact) obj;
+        return Objects.equals(firstName, contact.firstName) &&
+                Objects.equals(lastName, contact.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName);
+    }
     Scanner s=new Scanner(System.in);
     public void addContact(ArrayList<Contact> list) {
         Contact P1=new Contact();
@@ -91,6 +105,13 @@ public class Contact{
         System.out.print("Enter Email ID : ");
         P1.setEmail(s.next());
 
+        // Check for duplicate entry before adding the contact
+        if (!list.contains(P1)) {
+            list.add(P1);
+            System.out.println("Contact added successfully.");
+        } else {
+            System.out.println("Duplicate entry! Contact not added.");
+        }
         list.add(P1);
     }
     public void displayContacts(ArrayList<Contact> list){
@@ -142,13 +163,11 @@ public class Contact{
             System.out.println("Contact not found.");
         }
     }
-    private boolean findContact(ArrayList<Contact> list, String firstName, String lastName){
-        for (Contact contact : list) {
-            if (contact.getFirstName().equals(firstName) && contact.getLastName().equals(lastName))
-                return true;
-        }
-        return false;
+    public boolean findContact(ArrayList<Contact> list, String firstName, String lastName) {
+        return list.stream()
+                .anyMatch(contact -> contact.getFirstName().equals(firstName) && contact.getLastName().equals(lastName));
     }
+
     public void deleteContact(ArrayList<Contact> list, String firstName, String lastName) {
         Iterator<Contact> iterator = list.iterator();
         while (iterator.hasNext()) {

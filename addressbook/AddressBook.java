@@ -1,11 +1,15 @@
 package com.addressbook;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class AddressBook {
     Scanner scanner = new Scanner(System.in);
     ArrayList<Contact> list=new ArrayList<>();
+    public ArrayList<Contact> getList() {
+        return list;
+    }
     public void operate() {
         int choice;
         boolean isValid = true;

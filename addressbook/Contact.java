@@ -89,6 +89,7 @@ public class Contact{
         Contact P1=new Contact();
 
         System.out.print("Enter First Name: ");
+
         P1.setFirstName(s.nextLine());
         System.out.print("Enter Last Name : ");
         P1.setLastName(s.nextLine());

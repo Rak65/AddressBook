@@ -1,7 +1,9 @@
 package com.addressbook;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class AddressBookSystem {
     private static final Map<String, AddressBook> addressBooks = new HashMap<>();
@@ -15,7 +17,8 @@ public class AddressBookSystem {
             System.out.println("Choose your option:");
             System.out.println("1. Create new Address Book");
             System.out.println("2. Select Address Book");
-            System.out.println("3. Exit");
+            System.out.println("3. Search person by city or state : ");
+            System.out.println("4. Exit");
 
             choice = scanner.nextInt();
 
@@ -27,6 +30,9 @@ public class AddressBookSystem {
                     selectAddressBook();
                     break;
                 case 3:
+                    searchPersonByCityOrState();
+                    break;
+                case 4:
                     isValid = false;
                     break;
                 default:
@@ -94,4 +100,24 @@ public class AddressBookSystem {
             System.out.println("Address Book not found.");
         }
     }
+    private static void searchPersonByCityOrState() {
+        System.out.println("Enter the city or state to search:");
+        String searchLocation = scanner.next();
+
+        ArrayList<Contact> searchResults = addressBooks.values().stream()
+                .flatMap(addressBook -> addressBook.getList().stream())
+                .filter(contact -> contact.getCity().equalsIgnoreCase(searchLocation)
+                        || contact.getState().equalsIgnoreCase(searchLocation))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        if (searchResults.isEmpty()) {
+            System.out.println("No matching contacts found in the specified city or state.");
+        } else {
+            System.out.println("Search Results:");
+            for (Contact contact : searchResults) {
+                System.out.println(contact.toString());
+            }
+        }
+    }
+
 }

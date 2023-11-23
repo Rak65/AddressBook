@@ -18,7 +18,8 @@ public class AddressBookSystem {
             System.out.println("1. Create new Address Book");
             System.out.println("2. Select Address Book");
             System.out.println("3. Search person by city or state : ");
-            System.out.println("4. Exit");
+            System.out.println("4. View person by city or state.");
+            System.out.println("5. Exit");
 
             choice = scanner.nextInt();
 
@@ -33,6 +34,9 @@ public class AddressBookSystem {
                     searchPersonByCityOrState();
                     break;
                 case 4:
+                    searchPersonByCityOrState();
+                    break;
+                case 5:
                     isValid = false;
                     break;
                 default:

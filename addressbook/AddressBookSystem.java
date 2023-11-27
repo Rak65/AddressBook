@@ -19,7 +19,8 @@ public class AddressBookSystem {
             System.out.println("2. Select Address Book");
             System.out.println("3. Search person by city or state : ");
             System.out.println("4. View person by city or state.");
-            System.out.println("5. Exit");
+            System.out.println("5. Number of contact present in city or state.");
+            System.out.println("6. Exit");
 
             choice = scanner.nextInt();
 
@@ -37,6 +38,9 @@ public class AddressBookSystem {
                     searchPersonByCityOrState();
                     break;
                 case 5:
+                    noOfContactPerson();
+                    break;
+                case 6:
                     isValid = false;
                     break;
                 default:
@@ -123,5 +127,16 @@ public class AddressBookSystem {
             }
         }
     }
+    private static void noOfContactPerson() {
+        System.out.println("Enter the city or state to search:");
+        String searchLocation = scanner.next();
 
+        ArrayList<Contact> searchResults = addressBooks.values().stream()
+                .flatMap(addressBook -> addressBook.getList().stream())
+                .filter(contact -> contact.getCity().equalsIgnoreCase(searchLocation)
+                        || contact.getState().equalsIgnoreCase(searchLocation))
+                .collect(Collectors.toCollection(ArrayList::new));
+        int countContact=searchResults.size();
+        System.out.println(countContact+" Person available in "+searchLocation);
+    }
 }

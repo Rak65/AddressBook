@@ -128,7 +128,7 @@ public class AddressBookSystem {
         }
     }
     private static void noOfContactPerson() {
-        System.out.println("Enter the city or state to search:");
+        System.out.println("Enter the city or state to search :");
         String searchLocation = scanner.next();
 
         ArrayList<Contact> searchResults = addressBooks.values().stream()

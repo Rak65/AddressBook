@@ -2,6 +2,7 @@ package com.addressbook;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class AddressBook {
@@ -21,7 +22,8 @@ public class AddressBook {
             System.out.println("3. Edit contact");
             System.out.println("4. Delete contact.");
             System.out.println("5. Sort contacts by name.");
-            System.out.println("6. Exit.");
+            System.out.println("6. Sort contacts by city,state or zip.");
+            System.out.println("7. Exit.");
             choice = scanner.nextInt();
             switch (choice) {
                 case 1:
@@ -49,6 +51,9 @@ public class AddressBook {
                     sortContactsByName();
                     break;
                 case 6:
+                    sortContactsBy();
+                    break;
+                case 7:
                     isValid = false;
                     break;
                 default:
@@ -71,5 +76,40 @@ public class AddressBook {
         });
 
         System.out.println("Contacts sorted alphabetically by name.");
+    }
+    private void sortContactsBy() {
+        if (list.isEmpty()) {
+            System.out.println("No contacts to sort.");
+            return;
+        }
+
+        System.out.println("Choose sorting criteria:");
+        System.out.println("1. City");
+        System.out.println("2. State");
+        System.out.println("3. Zip");
+
+        int sortChoice = scanner.nextInt();
+
+        Comparator<Contact> comparator;
+
+        switch (sortChoice) {
+            case 1:
+                comparator = Comparator.comparing(Contact::getCity);
+                break;
+            case 2:
+                comparator = Comparator.comparing(Contact::getState);
+                break;
+            case 3:
+                comparator = Comparator.comparingInt(Contact::getZip);
+                break;
+            default:
+                System.out.println("Invalid sorting criteria.");
+                return;
+        }
+
+        list.sort(comparator);
+
+        System.out.println("Contacts sorted.");
+        System.out.println(list);
     }
 }

@@ -21,7 +21,7 @@ public class AddressBook {
             System.out.println("3. Edit contact");
             System.out.println("4. Delete contact.");
             System.out.println("5. Sort contacts by name.");
-            System.out.println("6. Exit");
+            System.out.println("6. Exit.");
             choice = scanner.nextInt();
             switch (choice) {
                 case 1:
